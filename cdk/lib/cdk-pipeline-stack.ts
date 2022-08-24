@@ -1,6 +1,7 @@
 import { Construct, Stage, StageProps, Stack, StackProps, Aws } from "@aws-cdk/core";
 import { CodePipeline, CodePipelineSource, ManualApprovalStep, ShellStep, Wave } from "@aws-cdk/pipelines";
 import { S3Stack } from "./s3-stack";
+//import { AccessAnalyzerStack } from "./access-analyzer-stack";
 import { GraphqlApiStack } from "./api-stack";
 import { VpcStack } from "./vpc-stack";
 import { RDSStack } from "./rds-stack";
@@ -8,13 +9,13 @@ import { IDatabaseInstance } from "@aws-cdk/aws-rds";
 
 
 export interface AppStageProps extends StageProps {
-  primaryRdsInstance?: IDatabaseInstance,
-  secretReplicationRegions?: string[]
+  //primaryRdsInstance?: IDatabaseInstance,
+  //secretReplicationRegions?: string[]
 }
 
 class AppStage extends Stage {
-  public readonly apiStack: GraphqlApiStack;
-  public readonly rdsStack: RDSStack;
+  //public readonly apiStack: GraphqlApiStack;
+  //public readonly rdsStack: RDSStack;
 
   constructor(scope: Construct, id: string, props?: AppStageProps) {
     super(scope, id, props);
@@ -40,7 +41,8 @@ class AppStage extends Stage {
       rdsPasswordSecretName: this.rdsStack.rdsDatabasePasswordSecretName.value,
     });*/
 
-    const accessAnalyzerStack = new S3Stack(this, "S3Stack");
+    const s3Stack = new S3Stack(this, "S3Stack");
+    //const accessAnalyzerstack = new AccessAnalyzerStack(this, "AccessAnalyzerstack");
     
   }
 }
