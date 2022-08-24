@@ -1,5 +1,5 @@
 import { Stack, StackProps, Construct, CfnOutput } from "@aws-cdk/core";
-import { Bucket } from "aws-cdk/aws-s3";
+import { Bucket } from "@aws-cdk/aws-s3";
 
 export interface S3StackProps extends StackProps {
     env: {
