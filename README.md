@@ -25,7 +25,7 @@ Deploying AWS CDK apps into an AWS environment may require that you provision re
     cdk bootstrap --trust <pipelineAccountId> --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess aws://<targetAccountId>/<targetRegion> --profile <yourProfileNameForTargetAccount>
     ```
 Example:
-   ```
+    ```
     cdk bootstrap --trust 118379544242 --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess aws://603325786329/eu-west-1 --profile 603325786329_SecOps
     ```
 
