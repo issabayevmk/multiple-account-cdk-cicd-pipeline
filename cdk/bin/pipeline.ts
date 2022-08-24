@@ -6,9 +6,9 @@ const app = new App();
 
 new CdkPipelineStack(app, 'CdkPipelineStack', {
   env: { 
-    account: process.env.CDK_DEFAULT_ACCOUNT, region: process.env.CDK_DEFAULT_REGION
-    //account: '118379544242',
-    //region: 'eu-central-1'
+    //account: process.env.CDK_DEFAULT_ACCOUNT, region: process.env.CDK_DEFAULT_REGION
+    account: '118379544242',
+    region: 'eu-central-1'
   },
 });
 
