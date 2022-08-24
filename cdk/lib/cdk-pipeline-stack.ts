@@ -1,6 +1,6 @@
 import { Construct, Stage, StageProps, Stack, StackProps, Aws } from "@aws-cdk/core";
 import { CodePipeline, CodePipelineSource, ManualApprovalStep, ShellStep, Wave } from "@aws-cdk/pipelines";
-import { AccessAnalyzerStack } from "./acess-analyzer-stack";
+import { S3Stack } from "./s3-stack";
 import { GraphqlApiStack } from "./api-stack";
 import { VpcStack } from "./vpc-stack";
 import { RDSStack } from "./rds-stack";
@@ -19,7 +19,7 @@ class AppStage extends Stage {
   constructor(scope: Construct, id: string, props?: AppStageProps) {
     super(scope, id, props);
     
-    const vpcStack = new VpcStack(this, "VPCStack");
+    /*const vpcStack = new VpcStack(this, "VPCStack");
 
     this.rdsStack = new RDSStack(this, "RDSStack", {
       vpc: vpcStack.vpc,
@@ -38,9 +38,9 @@ class AppStage extends Stage {
       rdsDbName: this.rdsStack.rdsDbName,
       rdsPort: this.rdsStack.rdsPort,
       rdsPasswordSecretName: this.rdsStack.rdsDatabasePasswordSecretName.value,
-    });
+    });*/
 
-    const accessAnalyzerStack = new AccessAnalyzerStack(this, "AccessAnalyzerStack");
+    const accessAnalyzerStack = new S3Stack(this, "AccessAnalyzerStack");
     
   }
 }
