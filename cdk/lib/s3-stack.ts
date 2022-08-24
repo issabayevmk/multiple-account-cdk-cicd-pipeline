@@ -2,7 +2,10 @@ import { Stack, StackProps, Construct, CfnOutput } from "@aws-cdk/core";
 import { Bucket } from "aws-cdk/aws-s3";
 
 export interface S3StackProps extends StackProps {
-
+    env: {
+        account: '118379544242',
+        region: 'eu-central-1'
+      },
 }
 
 export class S3Stack extends Stack {
