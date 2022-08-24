@@ -40,7 +40,7 @@ class AppStage extends Stage {
       rdsPasswordSecretName: this.rdsStack.rdsDatabasePasswordSecretName.value,
     });*/
 
-    const accessAnalyzerStack = new S3Stack(this, "AccessAnalyzerStack");
+    const accessAnalyzerStack = new S3Stack(this, "S3Stack");
     
   }
 }
