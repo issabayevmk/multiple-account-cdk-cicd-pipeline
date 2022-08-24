@@ -1,6 +1,6 @@
-# Build CI/CD Pipelines with CDK - Multi Account/Region Deployments
+# CI/CD Pipelines with CDK - Multi Account/Region Deployments
 
-In this sample we introduce a way to build CI/CD pipelines using the CDK to realize multi account/region deployments.  An example use case for this is deployment of S3 bucket to multiple environments such as Bitstamp Development and Bitstamp Scratch.
+This project is foundation for secure AWS infrastructure deployment through CI/CD pipelines using the CDK to realize multi account/region deployments.  An example use case for this is deployment of S3 bucket to multiple environments such as Bitstamp Development and Bitstamp Scratch.
 
 &nbsp;
 
