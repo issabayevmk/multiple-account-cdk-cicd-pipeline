@@ -1,5 +1,6 @@
 import { Construct, Stage, StageProps, Stack, StackProps, Aws } from "@aws-cdk/core";
 import { CodePipeline, CodePipelineSource, ManualApprovalStep, ShellStep, Wave } from "@aws-cdk/pipelines";
+import {}
 import { GraphqlApiStack } from "./api-stack";
 import { VpcStack } from "./vpc-stack";
 import { RDSStack } from "./rds-stack";
@@ -45,14 +46,14 @@ export class CdkPipelineStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const githubOrg = process.env.GITHUB_ORG || "kevasync";
-    const githubRepo = process.env.GITHUB_REPO || "awsmug-serverless-graphql-api";
-    const githubBranch = process.env.GITHUB_BRANCH || "master";
-    const devAccountId = process.env.DEV_ACCOUNT_ID || "";
-    const stgAccountId = process.env.STG_ACCOUNT_ID || "";
-    const prdAccountId = process.env.PRD_ACCOUNT_ID || "";
-    const primaryRegion = process.env.PRIMARY_REGION || "us-west-2";
-    const secondaryRegion = process.env.SECONDARY_REGION || "us-east-1";
+    const githubOrg = process.env.GITHUB_ORG || "issabayevmk";
+    const githubRepo = process.env.GITHUB_REPO || "multiple-account-cdk-cicd-pipeline";
+    const githubBranch = process.env.GITHUB_BRANCH || "main";
+    const devAccountId = process.env.DEV_ACCOUNT_ID || "603325786329";
+    const stgAccountId = process.env.STG_ACCOUNT_ID || "066238426285";
+    const prdAccountId = process.env.PRD_ACCOUNT_ID || "066238426285";
+    const primaryRegion = process.env.PRIMARY_REGION || "eu-central-1";
+    const secondaryRegion = process.env.SECONDARY_REGION || "eu-west-1";
 
     const pipeline = new CodePipeline(this, "Pipeline", {
       crossAccountKeys: true,
