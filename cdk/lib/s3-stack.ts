@@ -2,10 +2,6 @@ import { Stack, StackProps, Construct, CfnOutput } from "@aws-cdk/core";
 import * as s3 from "@aws-cdk/aws-s3";
 
 export interface S3StackProps extends StackProps {
-    /*env: {
-        account: '118379544242',
-        region: 'eu-central-1'
-      },*/
       name: string
 }
 
