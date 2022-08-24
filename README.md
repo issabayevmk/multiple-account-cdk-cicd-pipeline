@@ -1,6 +1,6 @@
 # Build CI/CD Pipelines with CDK - Multi Account/Region Deployments
 
-In this sample we introduce a way to build CI/CD pipelines using the CDK to realize multi account/region deployments.  An example use case for this is deployment of software and infrastructure to multiple environments such as Development, QA, Staging, and Production.
+In this sample we introduce a way to build CI/CD pipelines using the CDK to realize multi account/region deployments.  An example use case for this is deployment of S3 bucket to multiple environments such as Bitstamp Development and Bitstamp Scratch.
 
 &nbsp;
 
@@ -14,68 +14,6 @@ The following diagram shows the pipeline and target accounts’ regional archite
 
 &nbsp;
 
-##  Cross Account Console Setup - Console (Optional but recommended)
-During the deployment, we will need to switch between four AWS accounts to check resources. To avoid the time spent to log in and out of accounts, we will leverage roles to get access to different accounts in the console. This step will facilitate switching accounts in the console with 1-click.  The alternative to this approach would be to continuously log in and out of the accounts used by the pipeline, and the accounts the pipeline deploys to.
-
-1. In each of target accounts (prd, stg, dev), using the IAM (Identity and Access Management) service, create a role `OrganizationAccountAccessRole` and configure it to trust the pipeline account, attach policy, add tags, and confirm creation:
-   
-   * Create role that trusts another AWS account and specify pipeline account ID:
-   ![create_trusted_role](./images/create_trusted_role.png)
-
-   * Specify policy to attach to trusted role (`AdministratorAccess` used as the pipeline needs to create resources and IAM entities):
-   ![attach_trusted_role_policy](./images/attach_trusted_role_policy.png)
-   
-   * Review and create the role:
-   ![trusted_account_summary](./images/trusted_account_summary.png)
-
-2. In the pipeline account, create a policy as below for each of the target accounts and attach to a role your account can access.
-   
-   * Policy template:
-   ```
-      {
-         "Version": "2012-10-17",
-         "Statement": [
-            {
-                  "Sid": "VisualEditor0",
-                  "Effect": "Allow",
-                  "Action": "sts:AssumeRole",
-                  "Resource": "arn:aws:iam::<devAccountId>:role/OrganizationAccountAccessRole"
-            },
-            {
-                  "Sid": "VisualEditor1",
-                  "Effect": "Allow",
-                  "Action": "sts:AssumeRole",
-                  "Resource": "arn:aws:iam::<stagingAccountId>:role/OrganizationAccountAccessRole"
-            },
-            {
-                  "Sid": "VisualEditor2",
-                  "Effect": "Allow",
-                  "Action": "sts:AssumeRole",
-                  "Resource": "arn:aws:iam::<productionAccountId>:role/OrganizationAccountAccessRole"
-            }
-         ]
-      }
-   ```
-   * Create IAM policy:
-   ![create_policy](./images/create_policy.png)
-
-   * Review and name IAM policy:
-   ![review_policy](./images/review_policy.png)
-
-   * Attach policy to role your user has access to:
-   ![attach_console_role](./images/attach_console_role.png)
-
-3. Use drop-down menu at top-right of the console to switch between accounts.
-   * Click the `Switch role` button:
-   ![switch_role_dropdown](./images/switch_role_dropdown.png)  
-
-   * Enter the information of the role you want to assume:
-   ![switch_role](./images/switch_role.png)  
-
-   * Notice that roles you switch into are remembered, allowing 1-click role switching in the future:
-   ![1_click](./images/1_click.png)  
-&nbsp;
-
 ##  Regional CDK Bootstrapping
 
 Each account region combo that is deployed to must be bootstrapped. Since it is a cross-account deployment, a trust must be established during this process.
@@ -84,10 +22,14 @@ Deploying AWS CDK apps into an AWS environment may require that you provision re
 
 1. For each target account/region run the following CLI command (Must be ran as user with appropriate privs in the target account):
     ```
-    cdk bootstrap --trust <pipelineAccountId> --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess aws://<targetAccountId>/<targetRegion>
+    cdk bootstrap --trust <pipelineAccountId> --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess aws://<targetAccountId>/<targetRegion> --profile <yourProfileNameForTargetAccount>
+    ```
+Example:
+   ```
+    cdk bootstrap --trust 118379544242 --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess aws://603325786329/eu-west-1 --profile 603325786329_SecOps
     ```
 
-2. Given we are deploying to 2 regions in 3 different accounts, we must run this command 6 times
+2. Given we are deploying to 2 regions in 2 different accounts, we must run this command 4 times
 
 &nbsp;
 
