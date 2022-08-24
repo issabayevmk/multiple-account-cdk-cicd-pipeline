@@ -1,8 +1,12 @@
 import { Stack, StackProps, Construct, CfnOutput } from "@aws-cdk/core";
 import { Bucket } from "aws-cdk/aws-s3";
 
+export interface S3StackProps extends StackProps {
+
+}
+
 export class S3Stack extends Stack {
-    constructor(scope: Construct, id: string, props?: StackProps) {
+    constructor(scope: Construct, id: string, props: S3StackProps) {
         super(scope, id, props);
 
         const bucket = new Bucket.Bucket(this, 'SecurePipelineBucket', {
